@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/app.py",
+      "use": "@vercel/python",
+      "config": {"maxLambdaSize": "15mb"}
+    },
+    {
+      "src": "frontend/friend-list/package.json",
+      "use": "@vercel/static-build",
+      "config": {"distDir": "build"}
+    }
+  ],
+  "routes": [
+    {"src": "/api/(.*)", "dest": "backend/app.py"},
+    {"src": "/(.*)", "dest": "frontend/friend-list/build/$1"}
+  ]
+}
